@@ -85,6 +85,7 @@ router.post(
     }
   }
 );
+
 //user details
 
 router.post("/getUser", fetchuser, async (req, res) => {
