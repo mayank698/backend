@@ -9,5 +9,4 @@ const userSchema = new Schema({
   date: { type: Date, default: Date.now },
 });
 const User = mongoose.model("user", userSchema);
-User.createIndexes();
 module.exports = User;

@@ -11,19 +11,30 @@ router.post(
     body("email", "Enter a valid email").isEmail(),
     body("password", "5 digits required").isLength({ min: 5 }),
   ],
-  (req, res) => {
+
+  async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    User.create({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      password: req.body.password,
-    })
-      .then((user) => res.json(user))
-      .catch((err) => console.log(err));
+    try {
+      let user = await User.findOne({ email: req.body.email });
+      if (user) {
+        return res
+          .status(400)
+          .json({ error: "User with this email already exists" });
+      }
+      user = await User.create({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: req.body.password,
+      });
+      res.json(user);
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Error!")
+    }
   }
 );
 
