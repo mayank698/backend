@@ -14,7 +14,7 @@ router.post(
     body("firstName", "Must be greater than 3 words").isLength({ min: 3 }),
     body("lastName").isLength({ min: 3 }),
     body("email", "Enter a valid email").isEmail(),
-    body("password", "5 digits required").isLength({ min: 5 }),
+    body("password", "5 digits required").isLength({ min: 5 })
   ],
 
   async (req, res) => {

@@ -7,5 +7,5 @@ app.use(express.json());
 app.use("/user", require("./routes/userRoute"));
 
 app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`);
+  console.log(`App listening at https://localhost:${port}`);
 });
